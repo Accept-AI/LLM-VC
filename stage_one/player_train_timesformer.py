@@ -22,7 +22,7 @@ parser = argparse.ArgumentParser(description='Detector-Free Weakly Supervised Gr
 
 # Dataset specification
 parser.add_argument('--dataset', default='nba', type=str, help='volleyball or nba')
-parser.add_argument('--data_path', default='/data_1T/xzy/NBA_dataset/', type=str, help='data path')
+parser.add_argument('--data_path', default='/PATH/TO/NBA_dataset/', type=str, help='data path')
 parser.add_argument('--image_width', default=224, type=int, help='Image width to resize')
 parser.add_argument('--image_height', default=224, type=int, help='Image height to resize')
 parser.add_argument('--random_sampling', action='store_true', help='random sampling strategy')
@@ -116,7 +116,7 @@ def main():
         num_classes=321,
         num_frames=20,
         attention_type="divided_space_time",
-        pretrained_model="/home/xzy/NBA/LLM_VC/Player_identify/stage_one/network/TimeSformer/pretrained_model/TimeSformer_divST_32x32_224_HowTo100M.pyth",
+        pretrained_model="/PATH/TO/TimeSformer_divST_32x32_224_HowTo100M.pyth",
     )
 
     model = torch.nn.DataParallel(model).cuda()
