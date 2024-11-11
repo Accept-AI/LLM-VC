@@ -31,16 +31,16 @@ from pycocoevalcap.meteor.meteor import Meteor
 
 
 parser = argparse.ArgumentParser(description='LLM_VC for sports')
-parser.add_argument('--video_feature_root', default='/home/xzy/xzy_nba/VG_NBA_Timesformer-features', type=str, help='npy features root')
-parser.add_argument('--tokenizer_name', default="/home/xzy/xzy_nba/meta-llama/Llama-3.2-3B", type=str, help='tokenizer name')
+parser.add_argument('--video_feature_root', default='/PATH/TO/VG_NBA_Timesformer-features', type=str, help='npy features root')
+parser.add_argument('--tokenizer_name', default="/PATH/TO/Llama-3.2-3B", type=str, help='tokenizer name')
 # train
-parser.add_argument('--train_info_root', default="/home/xzy/xzy_nba/LLM_VC/Player_identify/code/B_data_preprocessing/train_video_info.json", type=str, help='train json file root')
-parser.add_argument('--train_top2_root', default="/home/xzy/xzy_nba/LLM_VC/Player_identify/code/B_data_preprocessing/D_train_videoid_player_feature_top2.pkl", type=str, help='train pkl file root')
+parser.add_argument('--train_info_root', default="/PATH/TO/train_video_info.json", type=str, help='train json file root')
+parser.add_argument('--train_top2_root', default="/PATH/TO/D_train_videoid_player_feature_top2.pkl", type=str, help='train pkl file root')
 parser.add_argument('--train_batch_size', default=8, type=int, help='train batch size')  # 1B--32    3B--8
 parser.add_argument('--train_num_workers', default=8, type=int, help='train number workers')
 # test
-parser.add_argument('--test_info_root', default="/home/xzy/xzy_nba/LLM_VC/Player_identify/code/B_data_preprocessing/test_video_info.json", type=str, help='test json file root')
-parser.add_argument('--test_top2_root', default="/home/xzy/xzy_nba/LLM_VC/Player_identify/code/A_data_preprocessing/E_videoid_top2.pkl", type=str, help='test pkl file root')
+parser.add_argument('--test_info_root', default="/PATH/TO/test_video_info.json", type=str, help='test json file root')
+parser.add_argument('--test_top2_root', default="/PATH/TO/E_videoid_top2.pkl", type=str, help='test pkl file root')
 parser.add_argument('--test_batch_size', default=8, type=int, help='test batch size')
 parser.add_argument('--test_num_workers', default=8, type=int, help='test number workers')
 # training setting
@@ -67,7 +67,7 @@ parser.add_argument("--load_ckpt", type=str, default="./LLM_ckpt/model_save_best
 
 # ori load model
 parser.add_argument('--load_model', default=False, action='store_true', help='load model')
-parser.add_argument('--model_path', default="/home/shige4090/xzy/BART_VC/result/[nba]_DFGAR_<2023-11-14_00-42-36>/epoch41.pth", type=str, help='pretrained model path')
+parser.add_argument('--model_path', default="/PATH/TO/[nba]_DFGAR_<2023-11-14_00-42-36>/epoch41.pth", type=str, help='pretrained model path')
 
 # dataloader
 parser.add_argument('--num_frame', default=60, type=int, help='number of frames for each clip')
