@@ -9,7 +9,7 @@ import shutil
 2. record the players' information as the json
 for example:
     {"Player100000": 
-        {"Source":"/media/xzy/58bff591-e818-4a4b-8c3e-e857128495ed/xzy/VG_NBA_2024/20221107-Cleveland Cavaliers-Los Angeles Clippers/193",
+        {"Source":"/PATH/TO/VG_NBA_2024/20221107-Cleveland Cavaliers-Los Angeles Clippers/193",
         "Source_ID":"Video100000",
         "GameID":"20221107-Brooklyn Nets-Dallas Mavericks",
         "Source_info":{"20221107-Brooklyn Nets-Dallas Mavericks":{"img_size":[1280,720,3],"img_num":750,"st_time":4,"ed_time":6.8,"Caption":"Jump ball: N.Claxton vs. J.McGee (S.Dinwiddie gains possession)","bbox":{"N.Claxton":[[577,255,656,334],[577,255,654,328],[579,258,661,333],[577,255,655,334],[578,259,658,336],[577,255,656,336],[578,254,655,333],[579,262,658,333],[579,260,654,334],[573,247,662,331],[537,229,671,330],[551,236,660,337],[565,240,661,350],[601,272,660,353],[581,278,648,376]],"J.McGee":[[655,243,728,330],[651,244,727,328],[653,245,725,325],[650,240,726,327],[646,246,724,328],[640,245,717,324],[641,252,713,327],[645,253,714,326],[642,253,719,336],[618,210,740,335],[655,214,729,338],[655,208,743,348],[658,248,738,395],[651,279,713,397],[611,287,684,401]],"S.Dinwiddie":[[990,222,1085,324],[990,227,1086,324],[986,228,1087,326],[983,229,1087,325],[984,228,1083,322],[984,227,1081,324],[984,225,1081,325],[984,225,1078,326],[984,224,1078,325],[984,224,1078,325],[984,224,1078,325],[970,232,1071,339],[968,260,1090,349],[1019,276,1124,355],[1052,292,1142,408]]}}},
@@ -94,9 +94,9 @@ PLAYERID = [f"Player{i}" for i in range(start, end + 1)]
 i = 0  # 记数
 
 # Out path
-Out_save_folder = "/media/xzy/58bff591-e818-4a4b-8c3e-e857128495ed/xzy/Players"
-output_video_segment_path = "/media/xzy/58bff591-e818-4a4b-8c3e-e857128495ed/xzy/Players/video_folder"
-out_frames_path = "/media/xzy/58bff591-e818-4a4b-8c3e-e857128495ed/xzy/Players/frames"
+Out_save_folder = "/PATH/TO/Players"
+output_video_segment_path = "/PATH/TO/Players/video_folder"
+out_frames_path = "/PATH/TO/Players/frames"
 # Out json
 Player_dict = {}
 error_dict = {}
@@ -106,7 +106,7 @@ new_file = open(Out_save_folder + 'C_PlayerID_bbox_sequences_info.json', mode='a
 error_file = open(Out_save_folder + 'C_Error.json', mode='a', encoding='utf-8')
 
 # obtain each VideoID_info
-with open("/Player_identify/Save/A_VideoID_path.json", encoding='utf-8') as VideoID_f:
+with open("/PATH/TO/A_VideoID_path.json", encoding='utf-8') as VideoID_f:
     result_vid = json.load(VideoID_f)
 
 # iterate through the dictionary  遍历字典
@@ -178,8 +178,8 @@ for k_vid, v_vid in result_vid.items():
                 pass
                 #print(f"the error in delting the folder: {e.strerror}")
             i = i + 1
-            output_video_segment_path = "/media/xzy/58bff591-e818-4a4b-8c3e-e857128495ed/xzy/Players/video_folder"
-            out_frames_path = "/media/xzy/58bff591-e818-4a4b-8c3e-e857128495ed/xzy/Players/frames"
+            output_video_segment_path = "/PATH/TO/Players/video_folder"
+            out_frames_path = "/PATH/TO/Players/frames"
             #print("-----------------------")
 
 json_save = json.dumps(Player_dict, ensure_ascii=False)
