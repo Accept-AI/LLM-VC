@@ -18,7 +18,7 @@ save_path = '..../Save/'
 new_file = open(save_path + 'A_VideoID_path.json', mode='a', encoding='utf-8')
 
 
-for dirpath, dirnames, filenames in os.walk('/media/..../VG_NBA_2024/'):
+for dirpath, dirnames, filenames in os.walk('PATH/TO/VG_NBA_2024/'):
     # print("dirpath: ", dirpath)
     # print("dirnames: ", dirnames)
     # print("filenames: ", filenames)
