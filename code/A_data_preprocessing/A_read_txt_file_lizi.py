@@ -1,7 +1,7 @@
 import json
 import os
 
-Out_save_folder = '/home/xzy/NBA/LLM_VC/Player_identify/code/A_data_preprocessing/'
+Out_save_folder = '/PATH/TO/A_data_preprocessing/'
 
 # Out json
 result_dict = {}
@@ -10,7 +10,7 @@ result_dict = {}
 new_file = open(Out_save_folder + 'result_detail.json', mode='a', encoding='utf-8')
 
 
-path = '/home/xzy/NBA/LLM_VC/Player_identify/code/A_data_preprocessing/'
+path = '/PATH/TO/A_data_preprocessing/'
 
 with open(path + 'MOT_result.txt') as f:
     for line in f.readlines():
