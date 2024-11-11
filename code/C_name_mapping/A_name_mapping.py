@@ -5,12 +5,12 @@ import pickle
 
 
 # load all file
-vid_folders = os.listdir("/home/xzy/xzy_nba/all_season_games/CODE/name_json")
+vid_folders = os.listdir("/PATH/TO/name_json")
 #print(vid_folders)
 new_dict = {}
 new_file = open('./name_mapping.json', mode='a', encoding='utf-8')
 for vid_folder in vid_folders:
-    path = os.path.join("/home/xzy/xzy_nba/all_season_games/CODE/name_json", vid_folder)
+    path = os.path.join("/PATH/TO/name_json", vid_folder)
     #print(path)
     json_file = json.load(open(path, 'r'))
     #print(json_file)
