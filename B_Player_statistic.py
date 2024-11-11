@@ -14,11 +14,11 @@ file_player = {}
 
 
 player_dict = {}
-save_path = '/home/.../caption/LLM_VC/Player_identify/Save/'
+save_path = '/PATH/TO/Save/'
 new_file = open(save_path + 'B_Player_statistic.json', mode='a', encoding='utf-8')
 
 #
-with open("/Player_identify/Save/A_VideoID_path.json", encoding='utf-8') as VideoID_f:
+with open("/PATH/TO/A_VideoID_path.json", encoding='utf-8') as VideoID_f:
     result_vid = json.load(VideoID_f)
 # print(len(result_vid))    # 9939
 for k_vid, v_vid in result_vid.items():
