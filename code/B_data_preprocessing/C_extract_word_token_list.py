@@ -8,27 +8,25 @@ import json
 import torch
 import pickle
 import copy
-# /home/xzy/xzy_nba/gpt2
-# /home/xzy/xzy_nba/Qwen/Qwen2.5-3B
-# /home/xzy/xzy_nba/meta-llama/Llama-3.2-3B
-tokenizer_name = '/home/xzy/xzy_nba/gpt2'
-llm_ckpt = "/home/xzy/xzy_nba/gpt2"
+
+tokenizer_name = '/PATH/TO/gpt2'
+llm_ckpt = "/PATH/TO/gpt2"
 tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
 config = GPT2Config.from_pretrained(tokenizer_name)
 predict_model = GPT2LMHeadModel.from_pretrained(llm_ckpt, config=config, torch_dtype=torch.bfloat16)
 
 # gpt2
-# tokenizer_name = '/home/xzy/xzy_nba/gpt2'
+# tokenizer_name = '/PATH/TO/gpt2'
 # config = GPT2Config.from_pretrained(tokenizer_name, add_cross_attention=True)
 # predict_model = GPT2LMHeadModel.from_pretrained(tokenizer_name, config=config)
 # tokenizer = GPT2Tokenizer.from_pretrained(tokenizer_name)
-# /home/xzy/xzy_nba/LLM_VC/Player_identify/code/B_data_preprocessing/train_video_info.json
-# /home/xzy/xzy_nba/LLM_VC/Player_identify/code/B_data_preprocessing/test_video_info.json
-# /home/xzy/xzy_nba/LLM_VC/Player_identify/Save/C_PlayerID_bbox_sequences_info.json
+# /PATH/TO/train_video_info.json
+# /PATH/TO/test_video_info.json
+# /PATH/TO/C_PlayerID_bbox_sequences_info.json
 
 word_token_list = []
 
-with open("/home/xzy/xzy_nba/LLM_VC/Player_identify/code/B_data_preprocessing/train_video_info.json", encoding='utf-8') as Video_f:
+with open("/PATH/TO/train_video_info.json", encoding='utf-8') as Video_f:
     result_info = json.load(Video_f)
 
 
@@ -49,7 +47,7 @@ for k_video_info, v_video_info in result_info.items():
             word_token_list.append(item)
 
 
-with open("/home/xzy/xzy_nba/LLM_VC/Player_identify/code/B_data_preprocessing/test_video_info.json", encoding='utf-8') as Video_f_test:
+with open("/PATH/TO/test_video_info.json", encoding='utf-8') as Video_f_test:
     result_info_test = json.load(Video_f_test)
 
 for k_video_info_test, v_video_info_test in result_info_test.items():
