@@ -52,7 +52,7 @@ model = TimeSformer(
     num_classes=400,
     num_frames=32,
     attention_type="divided_space_time",
-    pretrained_model="/home/xzy/xzy_nba/LLM_VC/Player_identify/stage_one/network/TimeSformer/pretrained_model/TimeSformer_divST_32x32_224_HowTo100M.pyth",
+    pretrained_model="/PATH/TO/TimeSformer_divST_32x32_224_HowTo100M.pyth",
 ).cuda()
 
 
@@ -65,8 +65,8 @@ def main(file_path):
     global model
 
     """Read mp4 files"""
-    mp4_path = os.path.join("/home/xzy/xzy_nba/VG_NBA_videos_train", file_path)
-    out_path = os.path.join("/home/xzy/xzy_nba/VG_NBA_Timesformer-features", file_path)
+    mp4_path = os.path.join("/PATH/TO/VG_NBA_videos_train", file_path)
+    out_path = os.path.join("/PATH/TO/VG_NBA_Timesformer-features", file_path)
 
     if not os.path.exists(out_path):
         os.mkdir(out_path)
@@ -165,9 +165,9 @@ def transform(snippet):
 
 
 if __name__ == "__main__":
-    vid_folders = os.listdir("/home/xzy/xzy_nba/VG_NBA_videos_train")
+    vid_folders = os.listdir("/PATH/TO/VG_NBA_videos_train")
     print(vid_folders)
-    store_dir = os.listdir("/home/xzy/xzy_nba/VG_NBA_Timesformer-features")
+    store_dir = os.listdir("/PATH/TO/VG_NBA_Timesformer-features")
 
     for f in vid_folders:
         if f not in store_dir:
