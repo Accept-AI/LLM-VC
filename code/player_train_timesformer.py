@@ -76,7 +76,7 @@ parser.add_argument('--device', default="0", type=str, help='GPU device')
 
 # Load model
 parser.add_argument('--load_model', default=False, action='store_true', help='load model')
-parser.add_argument('--model_path', default="/PATH/TO/[nba]_DFGAR_<2023-09-10_14-20-54>/epoch18_60.53%.pth", type=str, help='pretrained model path')
+parser.add_argument('--model_path', default="", type=str, help='pretrained model path')
 
 args = parser.parse_args()
 best_mca = 0.0
