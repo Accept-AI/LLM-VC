@@ -12,9 +12,9 @@ y_list = []
 file_player = {}
 
 
-# 创建json
+
 player_dict = {}
-save_path = '/home/xzy/xzy/caption/LLM_VC/Player_identify/Save/'
+save_path = '/home/.../caption/LLM_VC/Player_identify/Save/'
 new_file = open(save_path + 'B_Player_statistic.json', mode='a', encoding='utf-8')
 
 #
@@ -56,42 +56,8 @@ for f_k, f_v in file_dict.items():
 json_save = json.dumps(player_dict, ensure_ascii=False)
 new_file.write(json_save)
 new_file.close()
-print("保存！")
+print("Save！")
 
-####$$$$$$$$$$$$$$$$
 
-# plt.figure(figsize=(80,10))
-# plt.bar(x_list,y_list,color="skyblue",width=0.5)
-#
-# plt.title("Player statistic")
-# plt.xlabel("Names")
-# plt.ylabel("Numbers")
-#
-# plt.xticks(rotation=90)
-# plt.xlim(-0.5, len(x_list)-1+0.5)
-#
-# plt.savefig("Player_statistic.pdf", format="pdf")
-# plt.show()
-# # 扇形图
-# bins = [0, 25, 50, 100, 150]
-# labels = ['0-25', '25-50', '50-100', '100-150']
-# counts = [0] * len(labels)
-#
-# for number in file_player.values():
-#     for i in range(len(bins) - 1):
-#         if bins[i] <= number < bins[i+1]:
-#             counts[i] += 1
-#             break
-# # 计算每个区间的比例
-# total = sum(counts)
-# # print(counts)  # [183, 84, 77, 14]
-# proportions = [count / total for count in counts]
-#
-# # 创建扇形图
-# plt.figure(figsize=(8, 8))
-# plt.pie(proportions, labels=labels, autopct='%1.1f%%',colors=plt.cm.Paired.colors)
-# plt.title('Proportions of Number in Different Ranges')
-#
-# plt.show()
 
 
