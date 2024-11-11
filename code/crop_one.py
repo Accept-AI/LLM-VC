@@ -4,8 +4,8 @@ import cv2
 import moviepy.editor as mp
 import os
 import json
-frame_path = "/home/xzy/NBA/LLM_VC/Player_identify/code/MOT/MixSort/Images/67/000000.jpg"
-cropped_img_path = "/home/xzy/NBA/LLM_VC/Player_identify/code/"
+frame_path = "/PATH/TO/LLM_VC/Player_identify/code/MOT/MixSort/Images/67/000000.jpg"
+cropped_img_path = "/PATH/TO/LLM_VC/Player_identify/code/"
 cropped_img_path = os.path.join(cropped_img_path, "1.jpg")
 frame = cv2.imread(frame_path)
 print(frame.shape)
