@@ -48,7 +48,7 @@ def make_parser():
     parser.add_argument("--video_id", type=str, default="", help="video name")
     parser.add_argument(
         "--Out_vis_path",
-        default="/home/xzy/NBA/VG_NBA_MOT_VIS",
+        default="/PATH/TO/VG_NBA_MOT_VIS",
         type=str,
         help="vis results, and you can check each vis file",
     )
@@ -57,17 +57,17 @@ def make_parser():
         "--demo", default="image", help="demo type, eg. image, video and webcam"
     )
     parser.add_argument(
-        "--path", default="/home/xzy/NBA/LLM_VC/Player_identify/code/MOT/MixSort/Images/7", help="path to images or video"
-        #"--path", default="/home/xzy/xzy/MOT/MixSort/videos/palace.mp4", help="path to images or video"
+        "--path", default="/PATH/TO/Images/7", help="path to images or video"
+        #"--path", default="/PATH/TO/videos/palace.mp4", help="path to images or video"
     )
 # video
 #     parser.add_argument(
 #         "--demo", default="webcam", help="demo type, eg. image, video and webcam"
 #     )
 #     parser.add_argument(
-#         "--path", default="/home/xzy/NBA/LLM_VC/Player_identify/code/MOT/MixSort/Images/video-1/32.mp4",
+#         "--path", default="/PATH/TO/MixSort/Images/video-1/32.mp4",
 #         help="path to images or video"
-#         # "--path", default="/home/xzy/xzy/MOT/MixSort/videos/palace.mp4", help="path to images or video"
+#         # "--path", default="/PATH/TO/MixSort/videos/palace.mp4", help="path to images or video"
 #     )
     parser.add_argument("--camid", type=int, default=0, help="webcam demo camera id")
     parser.add_argument(
@@ -80,11 +80,11 @@ def make_parser():
     # exp file
     parser.add_argument(
         "--exp_file",
-        default="/home/xzy/xzy_nba/LLM_VC/Player_identify/code/MOT/MixSort/exps/example/mot/yolox_x_sportsmot.py",
+        default="/PATH/TO/yolox_x_sportsmot.py",
         type=str,
         help="pls input your expriment description file",
     )
-    parser.add_argument("--ckpt", default="/home/xzy/xzy_nba/LLM_VC/Player_identify/code/MOT/MixSort/pretrained/MixFormer_sports_train.pth.tar", type=str, help="ckpt for eval")
+    parser.add_argument("--ckpt", default="/PATH/TO/MixFormer_sports_train.pth.tar", type=str, help="ckpt for eval")
     parser.add_argument(
         "--device",
         default="gpu",
