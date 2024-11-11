@@ -84,13 +84,13 @@ test_video_file = open('./test_video_info.json', mode='a', encoding='utf-8')
 #test_player_dict = {}
 
 # save test pictures
-test_path = "/home/xzy/NBA/VG_NBA_data/"
+test_path = "/PATH/TO/VG_NBA_data/"
 
 # save video segmentation, after will delete
-test_video_path = "/home/xzy/NBA/VG_NBA_linshi/"
+test_video_path = "/PATH/TO/VG_NBA_linshi/"
 
 # load ori PlayerID_bbox_sequences_info file
-with open("/home/xzy/NBA/LLM_VC/Player_identify/Save/C_PlayerID_bbox_sequences_info.json", encoding='utf-8') as Video_f:
+with open("/PATH/TO/C_PlayerID_bbox_sequences_info.json", encoding='utf-8') as Video_f:
     result_info = json.load(Video_f)
 
 
