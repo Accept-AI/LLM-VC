@@ -11,7 +11,7 @@ import time
     3.2 divide the player sequences adhere to the principle of 8:2
 4. make the train 
 """
-save_path = '/home/xzy/xzy/caption/LLM_VC/Player_identify/Save/'
+save_path = '/PATH/TO/Save/'
 # function preparation
 def split_list(names_list, ratio=0.8):
     # shuffle the list
@@ -30,7 +30,7 @@ def split_list(names_list, ratio=0.8):
 # 1.select the players more than 5, and save in a list
 player5_list = []
 playerless_5 = []
-with open("/Player_identify/Save/B_Player_statistic.json", encoding='utf-8') as Player_num:
+with open("/PATH/TO/B_Player_statistic.json", encoding='utf-8') as Player_num:
     result_p_num = json.load(Player_num)
 for k_p, v_p in result_p_num.items():
     if int(v_p) > 5 or int(v_p) == 5:
@@ -43,7 +43,7 @@ print("playerless_5: ", len(playerless_5))  # 37   specific name
 
 # 2. make the json file to record the player file whose number more than 5
 player5_dict = {}
-with open("/Player_identify/Save/C_PlayerID_bbox_sequences_info.json", encoding='utf-8') as Player_info:
+with open("/PATH/TO/C_PlayerID_bbox_sequences_info.json", encoding='utf-8') as Player_info:
     result_p_info = json.load(Player_info)
 for k_info, v_info in result_p_info.items():
     if v_info['Label'] in player5_list:
@@ -80,7 +80,7 @@ print("testing set: ", len(test_list)) # 2570
 # 4. make the train and test files
 train_dict = {}
 test_dict = {}
-with open("/Player_identify/Save/C_PlayerID_bbox_sequences_info.json", encoding='utf-8') as Player_info:
+with open("/PATH/TO/C_PlayerID_bbox_sequences_info.json", encoding='utf-8') as Player_info:
     result_p_info = json.load(Player_info)
 #i = 0
 for train_player in train_list:
