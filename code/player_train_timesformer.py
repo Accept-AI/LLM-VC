@@ -76,7 +76,7 @@ parser.add_argument('--device', default="0", type=str, help='GPU device')
 
 # Load model
 parser.add_argument('--load_model', default=False, action='store_true', help='load model')
-parser.add_argument('--model_path', default="/home/..../QT/detector_free/result/[nba]_DFGAR_<2023-09-10_14-20-54>/epoch18_60.53%.pth", type=str, help='pretrained model path')
+parser.add_argument('--model_path', default="/PATH/TO/[nba]_DFGAR_<2023-09-10_14-20-54>/epoch18_60.53%.pth", type=str, help='pretrained model path')
 
 args = parser.parse_args()
 best_mca = 0.0
@@ -116,7 +116,7 @@ def main():
         num_classes=321,
         num_frames=20,
         attention_type="divided_space_time",
-        pretrained_model="/home/.../NBA/LLM_VC/Player_identify/stage_one/network/TimeSformer/pretrained_model/TimeSformer_divST_32x32_224_HowTo100M.pyth",
+        pretrained_model="/PATH/TO/TimeSformer_divST_32x32_224_HowTo100M.pyth",
     )
 
     model = torch.nn.DataParallel(model).cuda()
