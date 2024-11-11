@@ -20,10 +20,10 @@ import pickle
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 # 路径
-player_path = '/home/xzy/xzy_nba/Players'   # all player sequences
+player_path = '/PATH/TO/Players'   # all player sequences
 # json files
-train_video_path = '/home/xzy/xzy_nba/LLM_VC/Player_identify/code/B_data_preprocessing/train_video_info.json'
-all_bbox_player_video_path = '/home/xzy/xzy_nba/LLM_VC/Player_identify/Save/C_PlayerID_bbox_sequences_info.json'
+train_video_path = '/PATH/TO/train_video_info.json'
+all_bbox_player_video_path = '/PATH/TO/C_PlayerID_bbox_sequences_info.json'
 # save pkl -- format dict
 E_result_dict = {}
 num_frame = 25
@@ -40,13 +40,13 @@ with open(all_bbox_player_video_path, encoding='utf-8') as all_bbox_player_video
     result_all_bbox_player_video = json.load(all_bbox_player_video)
 
 # initialize a Timesformer classifier
-model_path = "/home/xzy/xzy_nba/LLM_VC/Player_identify/stage_two/NBA_result_timesformer/[nba]_DFGAR_<2024-09-22_00-19-11>/epoch44_91.13%.pth"
+model_path = "/PATH/TO/stage_two/NBA_result_timesformer/[nba]_DFGAR_<2024-09-22_00-19-11>/epoch44_91.13%.pth"
 model = TimeSformer(
         img_size=224,
         num_classes=321,
         num_frames=20,
         attention_type="divided_space_time",
-        pretrained_model="/home/xzy/xzy_nba/LLM_VC/Player_identify/stage_one/network/TimeSformer/pretrained_model/TimeSformer_divST_32x32_224_HowTo100M.pyth",
+        pretrained_model="/PATH/TO/TimeSformer_divST_32x32_224_HowTo100M.pyth",
     )
 model = torch.nn.DataParallel(model).cuda()
 checkpoint = torch.load(model_path)
