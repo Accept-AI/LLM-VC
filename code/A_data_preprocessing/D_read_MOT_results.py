@@ -134,14 +134,14 @@ bbox_dict = {}
 new_file = open('D_bbox_for_player_video.json', mode='a', encoding='utf-8')
 
 # save_path: to save the cropped players
-save_path = "/home/xzy/NBA/VG_NBA_save_player"
+save_path = "/PATH/TO/VG_NBA_save_player"
 # 读取文件夹下所有子文件的txt文件，以及获取路径
 # 遍历当前文件夹中的所有子文件夹
-#candidate_path = "/home/xzy/NBA/VG_NBA_player_lizi"  # 例子，随便找几个测试下
-candidate_path = "/home/xzy/NBA/VG_NBA_data"  # 所有的数据是/home/xzy/NBA/VG_NBA_data
+#candidate_path = "/PATH/TO/VG_NBA_player_lizi"  # 例子，随便找几个测试下
+candidate_path = "/PATH/TO/VG_NBA_data" 
 
 for dirpath, dirnames, filenames in os.walk(candidate_path):
-    #print("dirpath: ", dirpath)   # dirpath: /home/xzy/NBA/VG_NBA_player_lizi
+    #print("dirpath: ", dirpath)  
     #print("dirnames: ", dirnames)  # ['Video100009', 'Video100008', 'Video100013', 'Video100004'..]
     #print("filenames: ", filenames)   # []
     for video_id in dirnames:
