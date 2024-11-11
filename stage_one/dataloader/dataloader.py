@@ -25,8 +25,8 @@ def read_dataset(args):
     #     data_path = args.data_path + 'NBA_dataset'
     #     image_path = data_path + "/videos"
     #
-    #     train_id_path = '/data_1T/xzy/NBA_dataset/NBA_dataset/train_video_ids'
-    #     test_id_path = '/data_1T/xzy/NBA_dataset/NBA_dataset/test_video_ids'
+    #     train_id_path = '/PATH/TO/train_video_ids'
+    #     test_id_path = '/PATH/TO/test_video_ids'
     #
     #     train_ids = read_ids(train_id_path)
     #     test_ids = read_ids(test_id_path)
@@ -48,11 +48,11 @@ def read_dataset(args):
     elif args.dataset == 'nba':
         data_path = args.data_path + 'NBA_dataset'
         image_path = data_path + "/videos"
-        image_2022_path = '/media/xzy/58bff591-e818-4a4b-8c3e-e857128495ed/xzy/beiyong/NBA_2022/NBA_2022/videos'  # 3977
+        image_2022_path = '/PATH/TO/videos'  # 3977
 
-        #train_id_path = '/data_1T/xzy/NBA_dataset/NBA_dataset/train_video_ids'
-        train_id_path = '/media/xzy/58bff591-e818-4a4b-8c3e-e857128495ed/xzy/beiyong/NBA_2022/NBA_2022/train_video_ids'
-        test_id_path = '/data_1T/xzy/NBA_dataset/NBA_dataset/test_video_ids'
+        #train_id_path = '/PATH/TO/train_video_ids'
+        train_id_path = '/PATH/TO/train_video_ids'
+        test_id_path = '/PATH/TO/test_video_ids'
 
         train_ids = read_ids(train_id_path)
         test_ids = read_ids(test_id_path)
