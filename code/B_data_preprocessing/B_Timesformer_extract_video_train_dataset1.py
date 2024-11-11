@@ -52,7 +52,7 @@ model = TimeSformer(
     num_classes=400,
     num_frames=32,
     attention_type="divided_space_time",
-    pretrained_model="/home/xzy/xzy_nba/LLM_VC/Player_identify/stage_one/network/TimeSformer/pretrained_model/TimeSformer_divST_32x32_224_HowTo100M.pyth",
+    pretrained_model="/PATH/TO/TimeSformer_divST_32x32_224_HowTo100M.pyth",
 ).cuda()
 
 
@@ -68,8 +68,8 @@ def main(video_file):
     print(video_id)
 
     """Read mp4 files"""
-    mp4_path = os.path.join("/home/xzy/xzy_nba/VC_model/CoCap-2023/dataset/msvd/videos", video_file)
-    out_path = os.path.join("/home/xzy/xzy_nba/VC_NBA_Timesformer-features", video_id)
+    mp4_path = os.path.join("/PATH/TO/VC_model/CoCap-2023/dataset/msvd/videos", video_file)
+    out_path = os.path.join("/PATH/TO/VC_NBA_Timesformer-features", video_id)
 
     if not os.path.exists(out_path):
         os.mkdir(out_path)
@@ -168,9 +168,9 @@ def transform(snippet):
 
 
 if __name__ == "__main__":
-    vid_list = os.listdir("/home/xzy/xzy_nba/VC_model/CoCap-2023/dataset/msvd/videos")
+    vid_list = os.listdir("/PATH/TO/VC_model/CoCap-2023/dataset/msvd/videos")
     #print("vid_list20: ", vid_list[:20])
-    # store_dir = os.listdir("/home/xzy/xzy_nba/VC_NBA_Timesformer-features")
+    # store_dir = os.listdir("/PATH/TO/VC_NBA_Timesformer-features")
     #
     # for f in vid_folders:
     #     if f not in store_dir:
