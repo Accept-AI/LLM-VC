@@ -67,8 +67,8 @@ class RestrictTokenGenerationLogitsProcessor(LogitsProcessor):
 class LLM_Captioner(nn.Module):
     def __init__(self,
                  # LLM part
-                 llm_ckpt="/home/xzy/xzy_nba/meta-llama/Llama-3.2-1B",
-                 tokenizer_ckpt="/home/xzy/xzy_nba/meta-llama/Llama-3.2-1B",
+                 llm_ckpt="/PATH/TO/Llama-3.2-1B",
+                 tokenizer_ckpt="/PATH/TO/Llama-3.2-1B",
                  # Q-former part
                  max_frame_pos=128,
                  num_video_query_token=32,
@@ -145,7 +145,7 @@ class LLM_Captioner(nn.Module):
         self.video_frame_position_embedding = self.video_frame_position_embedding.to(self.device)
 
         # Here is a trick for inference that generates soccer relevant, you can delete this LogitsProcessorList part (including in generation function)
-        file_path = '/home/xzy/xzy_nba/LLM_VC/Player_identify/code/B_data_preprocessing/C_VG_nba_llama_3-2_3B.pkl'
+        file_path = '/PATH/TO/C_VG_nba_llama_3-2_3B.pkl'
         with open(file_path, 'rb') as file:
             self.token_ids_list = pkl.load(file)
         # self.token_ids_list.append(128000) # llama3
@@ -159,7 +159,7 @@ class LLM_Captioner(nn.Module):
     @classmethod
     def init_video_Qformer(cls, num_query_token, vision_width, num_hidden_layers=2):
         #print("num_query_token")
-        encoder_config = BertConfig.from_pretrained("/home/xzy/xzy_nba/bert-base-uncased")
+        encoder_config = BertConfig.from_pretrained("/PATH/TO/bert-base-uncased")
         #print("encoder_config: ", encoder_config)
         encoder_config.num_hidden_layers = num_hidden_layers
         encoder_config.encoder_width = vision_width
