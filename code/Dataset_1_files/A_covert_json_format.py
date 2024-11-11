@@ -5,8 +5,7 @@ import numpy as np
 import pickle
 
 # load ori json
-# /home/xzy/NBA/VC_model/CoCap-2023/dataset/msvd/MSVD_caption_daxie.json
-with open('/home/xzy/NBA/VC_model/CoCap-2023/dataset/msvd/MSVD_caption_daxie.json', 'r') as f:
+with open('/PATH/TO/MSVD_caption_daxie.json', 'r') as f:
     data = json.load(f)
 print(data.keys())  # dict_keys(['metadata', 'train', 'test'])
 train_list = data['train']
@@ -21,8 +20,8 @@ train_file = open('./train_dataset1.json', 'a', encoding='utf-8')
 test_file = open('./test_dataset1.json', 'a', encoding='utf-8')
 
 #path
-train_save_path = '/home/xzy/NBA/Dataset_1_train'
-test_save_path = '/home/xzy/NBA/Dataset_1_test'
+train_save_path = '/PATH/TO/Dataset_1_train'
+test_save_path = '/PATH/TO/Dataset_1_test'
 # train
 for train_vid in train_list:
     sub_train_dict = train_info_dict[train_vid] = {}
