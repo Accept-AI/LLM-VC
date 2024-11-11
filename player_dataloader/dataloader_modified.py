@@ -10,14 +10,14 @@ TEST_SEQS_VOLLEY = [4, 5, 9, 11, 14, 20, 21, 25, 29, 34, 35, 37, 43, 44, 45, 47]
 def read_dataset(args):
     # data_path = args.data_path + 'NBA_dataset'
     # image_path = data_path + "/videos"
-    image_path = '/home/xzy/xzy_nba/Players'  #
+    image_path = '/PATH/TO/Players'  #
 
-    train_playerid_path = '/home/xzy/xzy_nba/LLM_VC/Player_identify/Save/D_train.json'
-    test_playerid_path = '/home/xzy/xzy_nba/LLM_VC/Player_identify/Save/D_test.json'
+    train_playerid_path = '/PATH/TO/D_train.json'
+    test_playerid_path = '/PATH/TO/D_test.json'
 
-    train_actionid_path = '/home/xzy/xzy_nba/LLM_VC/Player_identify/Save/E_action_train.json'
-    test_actionid_path = '/home/xzy/xzy_nba/LLM_VC/Player_identify/Save/E_action_test.json'
-    #test_id_path = '/home/xzy/xzy/caption/LLM_VC/Player_identify/Save/D_all.json'
+    train_actionid_path = '/PATH/TO/E_action_train.json'
+    test_actionid_path = '/PATH/TO/E_action_test.json'
+    #test_id_path = '/PATH/TO/D_all.json'
 
     train_ids = read_ids(train_playerid_path)
     test_ids = read_ids(test_playerid_path)
