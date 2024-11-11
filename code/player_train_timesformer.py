@@ -22,7 +22,7 @@ parser = argparse.ArgumentParser(description='Detector-Free Weakly Supervised Gr
 
 # Dataset specification
 parser.add_argument('--dataset', default='nba', type=str, help='volleyball or nba')
-parser.add_argument('--data_path', default='/data_1T/xzy/NBA_dataset/', type=str, help='data path')
+parser.add_argument('--data_path', default='/data_1T/.../NBA_dataset/', type=str, help='data path')
 parser.add_argument('--image_width', default=224, type=int, help='Image width to resize')
 parser.add_argument('--image_height', default=224, type=int, help='Image height to resize')
 parser.add_argument('--random_sampling', action='store_true', help='random sampling strategy')
@@ -76,7 +76,7 @@ parser.add_argument('--device', default="0", type=str, help='GPU device')
 
 # Load model
 parser.add_argument('--load_model', default=False, action='store_true', help='load model')
-parser.add_argument('--model_path', default="/home/xzy/xzy/QT/detector_free(备份)/result/[nba]_DFGAR_<2023-09-10_14-20-54>/epoch18_60.53%.pth", type=str, help='pretrained model path')
+parser.add_argument('--model_path', default="/home/..../QT/detector_free/result/[nba]_DFGAR_<2023-09-10_14-20-54>/epoch18_60.53%.pth", type=str, help='pretrained model path')
 
 args = parser.parse_args()
 best_mca = 0.0
@@ -116,7 +116,7 @@ def main():
         num_classes=321,
         num_frames=20,
         attention_type="divided_space_time",
-        pretrained_model="/home/xzy/NBA/LLM_VC/Player_identify/stage_one/network/TimeSformer/pretrained_model/TimeSformer_divST_32x32_224_HowTo100M.pyth",
+        pretrained_model="/home/.../NBA/LLM_VC/Player_identify/stage_one/network/TimeSformer/pretrained_model/TimeSformer_divST_32x32_224_HowTo100M.pyth",
     )
 
     model = torch.nn.DataParallel(model).cuda()
