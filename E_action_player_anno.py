@@ -9,15 +9,15 @@ action: foul, rebound, free throw, turnover, jump ball, shot
 save:
 {Playerxxx:action}
 """
-save_path = "/home/xzy/xzy_nba/LLM_VC/Player_identify/Save/"
-with open("/home/xzy/xzy_nba/LLM_VC/Player_identify/Save/C_PlayerID_bbox_sequences_info.json", encoding='utf-8') as Player_info:
+save_path = "/PATH/TO/Save/"
+with open("/PATH/TO/Save/C_PlayerID_bbox_sequences_info.json", encoding='utf-8') as Player_info:
     result_p_info = json.load(Player_info)
 
-with open("/home/xzy/xzy_nba/LLM_VC/Player_identify/Save/D_train.json", encoding='utf-8') as train_info:
+with open("/PATH/TO/Save/D_train.json", encoding='utf-8') as train_info:
     result_train = json.load(train_info)
     print("train_info: ", len(result_train))
 
-with open("/home/xzy/xzy_nba/LLM_VC/Player_identify/Save/D_test.json", encoding='utf-8') as test_info:
+with open("/PATH/TO/Save/D_test.json", encoding='utf-8') as test_info:
     result_test = json.load(test_info)
     print("test_info: ", len(result_test))
 
