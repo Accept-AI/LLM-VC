@@ -52,12 +52,12 @@ def crop_players_images(frames_folder, bbox_data, output_folder):
                 cv2.imwrite(cropped_img_path, cropped_img)
 
 # Load the JSON data
-with open('E:\BJUT\work/3_LLM_VC\Player identification\samples/20221107-Brooklyn Nets-Dallas Mavericks/40/40.json') as f:
+with open('/PATH/TO//20221107-Brooklyn Nets-Dallas Mavericks/40/40.json') as f:
     data = json.load(f)
 
 # Example usage
-input_video_path = 'E:\BJUT\work/3_LLM_VC\Player identification\samples/20221107-Brooklyn Nets-Dallas Mavericks/40/40.mp4'
-output_video_segment_path = 'E:\BJUT\work/3_LLM_VC\Player identification\samples/20221107-Brooklyn Nets-Dallas Mavericks/40\out/output_segment.mp4'
+input_video_path = '/PATH/TO/3_LLM_VC\Player identification\samples/20221107-Brooklyn Nets-Dallas Mavericks/40/40.mp4'
+output_video_segment_path = '/PATH/TO/3_LLM_VC\Player identification\samples/20221107-Brooklyn Nets-Dallas Mavericks/40\out/output_segment.mp4'
 video_data = data["20221107-Brooklyn Nets-Dallas Mavericks"]
 start_time = video_data["st_time"]
 end_time = video_data["ed_time"]
