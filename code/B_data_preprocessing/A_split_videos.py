@@ -2,7 +2,7 @@
 
 
 """
-参考 /home/xzy/xzy_nba/LLM_VC/Player_identify/code/A_data_preprocessing/B_segmentation.py
+参考 /PATH/TO/B_segmentation.py
 train:
 20221107-Milwaukee Bucks-Atlanta Hawks
 20221107-New York Knicks-Minnesota Timberwolves
@@ -163,13 +163,13 @@ test_video_file = open('./test_video_info.json', mode='a', encoding='utf-8')
 #test_player_dict = {}
 
 # save test videos
-train_video_path = "/home/xzy/xzy_nba/VG_NBA_videos_train/"
-test_video_path = "/home/xzy/xzy_nba/VG_NBA_videos_test/"
+train_video_path = "/PATH/TO/VG_NBA_videos_train/"
+test_video_path = "/PATH/TO/VG_NBA_videos_test/"
 
 
 
 # load ori PlayerID_bbox_sequences_info file
-with open("/home/xzy/xzy_nba/LLM_VC/Player_identify/Save/C_PlayerID_bbox_sequences_info.json", encoding='utf-8') as Video_f:
+with open("/PATH/TO/C_PlayerID_bbox_sequences_info.json", encoding='utf-8') as Video_f:
     result_info = json.load(Video_f)
 
 
