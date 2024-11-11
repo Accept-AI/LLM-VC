@@ -1,0 +1,9 @@
+Metadata-Version: 2.1
+Name: timesformer
+Version: 1.0
+Summary: TimeSformer
+Home-page: unknown
+Author: FBAI
+Keywords: artificial intelligence,attention mechanism,transformers,video classification
+Provides-Extra: tensorboard_video_visualization
+License-File: LICENSE
