@@ -209,37 +209,22 @@ class LLM_Captioner(nn.Module):
 
         if len(video_features.size()) != 4:
             video_features = video_features.unsqueeze(-2)
-        # print("pre: ", video_features.shape)
         video_input = copy.deepcopy(video_features)
         video_features = self.ln_vision(video_features)  # torch.Size([2, 1, 60, 768])  ln_vision : Layernorm
 
-        #video_features = video_features.view(batch_size, time_length, -1)  # 2,60,768
-        # print("video_features: ", video_features.shape)
-        # print("name_one_embeds: ", name_one_embeds.shape)  # torch.Size([2, 3072])
-        # print("entity_one_feature: ", entity_one_feature.shape)  # torch.Size([2, 1, 768])
-        # print("name_two_embeds: ", name_two_embeds.shape)  # torch.Size([2, 3072])
-        # print("entity_two_feature: ", entity_two_feature.shape)  # torch.Size([2, 1, 768])
 
-        # print("after: ", video_features.shape)
         ##########
         video_features = einops.rearrange(video_features, 'b n t f -> (b t) n f', b=batch_size, t=time_length)  # 2,60,768
-        # print("time_length: ", time_length)  # 60
-        # print("video_features_rearrange: ", video_features.shape)  # torch.Size([120, 1, 768])
 
 
         video_input = video_input.view(batch_size, time_length, -1)
-        #print("video_input: ", video_input.shape)
         entity_input = torch.cat((entity_one_feature.to(self.device), entity_two_feature.to(self.device)), dim=1)
 
         position_ids = torch.arange(time_length, dtype=torch.long).to(self.device)
-        # print("position_ids: ", position_ids.shape)  #  torch.Size([60])
         position_ids = position_ids.unsqueeze(0).expand(batch_size, -1)
-        # print("position_ids_unsqueeze: ", position_ids.shape)
         frame_position_embeddings = self.video_frame_position_embedding(position_ids)
         frame_position_embeddings = frame_position_embeddings.unsqueeze(-2)
-        # print("frame_position_embeddings: ", frame_position_embeddings.shape)
         frame_hidden_state = einops.rearrange(video_features, '(b t) n f -> b t n f', b=batch_size, t=time_length)
-        # print("frame_hidden_state: ", frame_hidden_state.shape)
         frame_hidden_state = frame_position_embeddings + frame_hidden_state
 
         frame_hidden_state = einops.rearrange(frame_hidden_state, 'b t q h -> b (t q) h', b=batch_size,
@@ -248,7 +233,7 @@ class LLM_Captioner(nn.Module):
             frame_hidden_state.to(self.device))
         video_query_tokens = self.video_query_tokens.expand(frame_hidden_state.shape[0], -1, -1).to(
             frame_hidden_state.to(self.device))
-        # print("video_query_tokens: ", video_query_tokens.shape)
+
         video_query_output = self.video_Qformer.bert(
             query_embeds=video_query_tokens,
             encoder_hidden_states=frame_hidden_state,
@@ -256,7 +241,7 @@ class LLM_Captioner(nn.Module):
             return_dict=True,
         )
         video_hidden = video_query_output.last_hidden_state
-        # print("video_hidden: ", video_hidden.shape)  # torch.Size([2, 32, 768])
+
         #####
         inputs_llama = self.llama_proj(video_hidden)  # torch.Size([2, 32, 3072])
 
@@ -264,9 +249,7 @@ class LLM_Captioner(nn.Module):
         video_out, entity_out = self.VEInter(video_input, entity_input, video_mask, entity_mask)
         input_video_llama = self.video_out_proj(video_out)
         input_entity_llama = self.entity_out_proj(entity_out)
-        #print("video_out: ", video_out.shape)
-#         print("entity_out: ", entity_out.shape)   video_out:  torch.Size([2, 60, 768])
-#                                                   entity_out:  torch.Size([2, 2, 768])
+
 
 
 
@@ -275,42 +258,19 @@ class LLM_Captioner(nn.Module):
                                       entity_two_feature, input_entity_llama, input_video_llama)
             # return temp_res_text, anonymized
 
-        # without name prompt
-        visual_label = torch.full((batch_size, self.num_video_query_token), -100, dtype=targets.dtype)
-        # revise: self.num_video_query_token+14 (full name)
-        #visual_label = torch.full((batch_size, self.num_video_query_token + 2 + 60 + 18), -100, dtype=targets.dtype)
-        # visual_label = torch.full((batch_size, 60 + 18), -100, dtype=targets.dtype)  # without qformer
 
-        # print("visual_label: ", visual_label.shape)  # torch.Size([2, 32])
-        # print(visual_label)  # full of -100
+        visual_label = torch.full((batch_size, self.num_video_query_token + 2 + 60 + 18), -100, dtype=targets.dtype)
         concat_targets = torch.cat((visual_label.to(self.device), targets.to(self.device)), dim=1)
         temp_input_ids = inputs_ids.clone().to(self.device)
         targets_embeds = self.llama_model.model.embed_tokens(temp_input_ids)
-        #print("targets_embeds: ", targets_embeds.shape)  # torch.Size([32, 30, 2048])
-        # add
-        # self.entity_one_proj = nn.Linear(num_features, self.llama_model.config.hidden_size)
-        # self.entity_two_proj = nn.Linear(num_features, self.llama_model.config.hidden_size)
         entity_one_feature = self.entity_one_proj(entity_one_feature.to(self.device))
         entity_two_feature = self.entity_two_proj(entity_two_feature.to(self.device))
-        # print("entity_two_feature: ", entity_two_feature.shape)  # entity_two_feature:  torch.Size([2, 1, 3072])
-
         name_one_embeds = name_one_embeds.view(batch_size, 8, -1).to(
             self.device)  # name_one_embeds:  torch.Size([2, 1, 3072])
         name_two_embeds = name_two_embeds.view(batch_size, 8, -1).to(self.device)
-        # print("name_two_embeds: ", name_two_embeds.shape)
-
-        # ori
-        embedding_cat = torch.cat((inputs_llama, targets_embeds), dim=1)
-        # revise  inputs_llama, video_out, entity_out, name_one_embeds, entity_one_feature, name_two_embeds, entity_two_feature,
-        # embedding_cat = torch.cat((inputs_llama, input_video_llama, input_entity_llama, name_one_embeds, entity_one_feature, name_two_embeds, entity_two_feature,
-        #                            targets_embeds), dim=1)
-        # print("embedding_cat: ", embedding_cat.shape)
-        # without prompt
-        mask_prefix = torch.ones(batch_size, self.num_video_query_token, dtype=atts_llama.dtype)
-        #mask_prefix = torch.ones(batch_size, self.num_video_query_token + 2 + 60 + 18, dtype=atts_llama.dtype)  #
-        # mask_prefix = torch.ones(batch_size, 60 + 18, dtype=atts_llama.dtype)  # without qformer
-
-        # print("mask_prefix: ", mask_prefix.shape)  # torch.Size([2, 36])
+        embedding_cat = torch.cat((inputs_llama, input_video_llama, input_entity_llama, name_one_embeds, entity_one_feature, name_two_embeds, entity_two_feature,
+                                    targets_embeds), dim=1)
+        mask_prefix = torch.ones(batch_size, self.num_video_query_token + 2 + 60 + 18, dtype=atts_llama.dtype)  #
         mask = torch.concat((mask_prefix.to(self.device), atts_llama.to(self.device)), dim=1)
 
         original_stdout = sys.stdout
@@ -337,20 +297,11 @@ class LLM_Captioner(nn.Module):
         entity_two_feature = self.entity_two_proj(entity_two_feature.to(self.device))
 
         start_embeds = self.llama_model.model.embed_tokens(torch.tensor([128000]).to(self.device))  # llama3
-        # start_embeds = self.llama_model.model.embed_tokens(torch.tensor([151645]).cuda())
-        # inputs_llama_with_s = torch.cat(
-        #     [inputs_llama, video_out, entity_out, name_one_embeds, entity_one_feature, name_two_embeds, entity_two_feature,
-        #      start_embeds.expand(inputs_llama.size(0), -1, -1)], dim=1).to(
-        #     dtype=torch.bfloat16)
         inputs_llama_with_s = torch.cat(
-            [inputs_llama,
-             start_embeds.expand(inputs_llama.size(0), -1, -1)], dim=1).to(
-            dtype=torch.bfloat16)
-        #print("inputs_llama_with_s: ", inputs_llama_with_s.shape)  # inputs_llama_with_s:  torch.Size([2, 33, 3072])
-        # without prompt
-        mask_prefix = torch.ones(batch_size, self.num_video_query_token + 1, dtype=torch.bool).to(self.device)
-        #mask_prefix = torch.ones(batch_size, self.num_video_query_token+1+18+2+60, dtype=torch.bool).to(self.device)
-        # mask_prefix = torch.ones(batch_size, 60 + 1 + 18, dtype=torch.bool).to(self.device) # without qformer
+             [inputs_llama, video_out, entity_out, name_one_embeds, entity_one_feature, name_two_embeds, entity_two_feature,
+              start_embeds.expand(inputs_llama.size(0), -1, -1)], dim=1).to(
+             dtype=torch.bfloat16)
+        mask_prefix = torch.ones(batch_size, self.num_video_query_token+1+18+2+60, dtype=torch.bool).to(self.device)
 
         temp_res_tokens = self.llama_model.generate(
             logits_processor=self.logits_prosessors,
@@ -369,161 +320,6 @@ class LLM_Captioner(nn.Module):
         )
         res_text = process_output_tokens(self, temp_res_tokens)
         return res_text
-#     # without VE module
-#     def forward(self, video, video_mask, caption_tokens, labels, attention_mask, name_one_embeds, entity_one_feature, name_two_embeds, entity_two_feature, validating=False):
-#
-#         video_features = video.to(self.device)
-#         #print("video: ", video_features.shape)  # torch.Size([2, 1, 60, 768])
-#         targets = labels.to(self.device)
-#         atts_llama = attention_mask.to(self.device)
-#
-#         #print("atts_llama: ", atts_llama.shape)  # torch.Size([2, 30])
-#         inputs_ids = caption_tokens.to(self.device)
-#         # print(samples["caption_info"])
-#         batch_size = None
-#         time_length = None
-#
-#         batch_size, _, time_length, _ = video_features.size()
-#
-#         # entity_mask
-#         entity_mask = torch.ones(batch_size, 2, dtype=atts_llama.dtype)
-#
-#         if len(video_features.size()) != 4:
-#             video_features = video_features.unsqueeze(-2)
-#         #print("pre: ", video_features.shape)
-#         video_features = self.ln_vision(video_features)   # torch.Size([2, 1, 60, 768])  ln_vision : Layernorm
-#         video_features = video_features.view(batch_size, time_length, -1)
-#         # print("video_features: ", video_features.shape)
-#         # print("name_one_embeds: ", name_one_embeds.shape)  # torch.Size([2, 3072])
-#         # print("entity_one_feature: ", entity_one_feature.shape)  # torch.Size([2, 1, 768])
-#         # print("name_two_embeds: ", name_two_embeds.shape)  # torch.Size([2, 3072])
-#         # print("entity_two_feature: ", entity_two_feature.shape)  # torch.Size([2, 1, 768])
-#
-#         #print("after: ", video_features.shape)
-# ##########
-#         video_features = einops.rearrange(video_features, 'b n t f -> (b t) n f', b=batch_size, t=time_length)
-#         # print("time_length: ", time_length)  # 60
-#         # print("video_features_rearrange: ", video_features.shape)  # torch.Size([120, 1, 768])
-#
-#         position_ids = torch.arange(time_length, dtype=torch.long).to(self.device)
-#         #print("position_ids: ", position_ids.shape)  #  torch.Size([60])
-#         position_ids = position_ids.unsqueeze(0).expand(batch_size, -1)
-#         #print("position_ids_unsqueeze: ", position_ids.shape)
-#         frame_position_embeddings = self.video_frame_position_embedding(position_ids)
-#         frame_position_embeddings = frame_position_embeddings.unsqueeze(-2)
-#         #print("frame_position_embeddings: ", frame_position_embeddings.shape)
-#         frame_hidden_state = einops.rearrange(video_features, '(b t) n f -> b t n f', b=batch_size, t=time_length)
-#         #print("frame_hidden_state: ", frame_hidden_state.shape)
-#         frame_hidden_state = frame_position_embeddings + frame_hidden_state
-#
-#         frame_hidden_state = einops.rearrange(frame_hidden_state, 'b t q h -> b (t q) h', b=batch_size, t=time_length)
-#         frame_atts = torch.ones(frame_hidden_state.size()[:-1], dtype=torch.long).to(frame_hidden_state.to(self.device))
-#         video_query_tokens = self.video_query_tokens.expand(frame_hidden_state.shape[0], -1, -1).to(
-#             frame_hidden_state.to(self.device))
-#         #print("video_query_tokens: ", video_query_tokens.shape)
-#         video_query_output = self.video_Qformer.bert(
-#             query_embeds=video_query_tokens,
-#             encoder_hidden_states=frame_hidden_state,
-#             encoder_attention_mask=frame_atts,
-#             return_dict=True,
-#         )
-#         video_hidden = video_query_output.last_hidden_state
-#         #print("video_hidden: ", video_hidden.shape)  # torch.Size([2, 32, 768])
-# #####
-#         inputs_llama = self.llama_proj(video_hidden)  # torch.Size([2, 32, 3072])
-#         #inputs_llama = self.llama_proj(video_features)  # torch.Size([2, 32, 3072])
-#
-#         #print("inputs_llama: ", inputs_llama.shape)
-#
-#         if validating:
-#             return self.generate_text(inputs_llama, name_one_embeds, entity_one_feature, name_two_embeds, entity_two_feature)
-#             # return temp_res_text, anonymized
-#
-#         # without name prompt
-#         #visual_label = torch.full((batch_size, self.num_video_query_token), -100, dtype=targets.dtype)
-#         # revise: self.num_video_query_token+14 (full name)
-#         visual_label = torch.full((batch_size, self.num_video_query_token + 18), -100, dtype=targets.dtype)
-#         #visual_label = torch.full((batch_size, 60 + 18), -100, dtype=targets.dtype)  # without qformer
-#
-#         #print("visual_label: ", visual_label.shape)  # torch.Size([2, 32])
-#         #print(visual_label)  # full of -100
-#         concat_targets = torch.cat((visual_label.to(self.device), targets.to(self.device)), dim=1)
-#         temp_input_ids = inputs_ids.clone().to(self.device)
-#         targets_embeds = self.llama_model.model.embed_tokens(temp_input_ids)
-#         # add
-#         # self.entity_one_proj = nn.Linear(num_features, self.llama_model.config.hidden_size)
-#         # self.entity_two_proj = nn.Linear(num_features, self.llama_model.config.hidden_size)
-#         entity_one_feature = self.entity_one_proj(entity_one_feature.to(self.device))
-#         entity_two_feature = self.entity_two_proj(entity_two_feature.to(self.device))
-#         #print("entity_two_feature: ", entity_two_feature.shape)  # entity_two_feature:  torch.Size([2, 1, 3072])
-#
-#         name_one_embeds = name_one_embeds.view(batch_size, 8, -1).to(self.device)  # name_one_embeds:  torch.Size([2, 1, 3072])
-#         name_two_embeds = name_two_embeds.view(batch_size, 8, -1).to(self.device)
-#         #print("name_two_embeds: ", name_two_embeds.shape)
-#
-#
-#         # ori
-#         #embedding_cat = torch.cat((inputs_llama, targets_embeds), dim=1)
-#         # revise
-#         embedding_cat = torch.cat((name_one_embeds, entity_one_feature, name_two_embeds, entity_two_feature, inputs_llama, targets_embeds), dim=1)
-#         #print("embedding_cat: ", embedding_cat.shape)
-#         mask_prefix = torch.ones(batch_size, self.num_video_query_token + 18, dtype=atts_llama.dtype)
-#         # mask_prefix = torch.ones(batch_size, 60 + 18, dtype=atts_llama.dtype)  # without qformer
-#         #mask_prefix = torch.ones(batch_size, self.num_video_query_token, dtype=atts_llama.dtype)
-#         #print("mask_prefix: ", mask_prefix.shape)  # torch.Size([2, 36])
-#         mask = torch.concat((mask_prefix.to(self.device), atts_llama.to(self.device)), dim=1)
-#
-#         original_stdout = sys.stdout
-#         sys.stdout = io.StringIO()
-#         with self.maybe_autocast():
-#             outputs = self.llama_model(
-#                 inputs_embeds=embedding_cat,
-#                 attention_mask=mask,
-#                 return_dict=True,
-#                 labels=concat_targets,
-#             )
-#         sys.stdout = original_stdout
-#         loss = outputs.loss
-#         #print("loss: ", loss)
-#         return loss
-#
-#     def generate_text(self, inputs_llama, name_one_embeds, entity_one_feature, name_two_embeds, entity_two_feature):
-#         batch_size = inputs_llama.size(0)
-#         # add
-#         name_one_embeds = name_one_embeds.view(batch_size, 8, -1).to(self.device)  # name_one_embeds:  torch.Size([2, 1, 3072])
-#         name_two_embeds = name_two_embeds.view(batch_size, 8, -1).to(self.device)
-#         entity_one_feature = self.entity_one_proj(entity_one_feature.to(self.device))
-#         entity_two_feature = self.entity_two_proj(entity_two_feature.to(self.device))
-#
-#         start_embeds = self.llama_model.model.embed_tokens(torch.tensor([128000]).to(self.device)) # llama3
-#         #start_embeds = self.llama_model.model.embed_tokens(torch.tensor([151645]).cuda())
-#         inputs_llama_with_s = torch.cat([name_one_embeds, entity_one_feature, name_two_embeds, entity_two_feature, inputs_llama, start_embeds.expand(inputs_llama.size(0), -1, -1)], dim=1).to(
-#             dtype=torch.bfloat16)
-#         # inputs_llama_with_s = torch.cat(
-#         #     [inputs_llama,
-#         #      start_embeds.expand(inputs_llama.size(0), -1, -1)], dim=1).to(
-#         #     dtype=torch.bfloat16)
-#         # print("inputs_llama_with_s: ", inputs_llama_with_s.shape)  # inputs_llama_with_s:  torch.Size([2, 33, 3072])
-#         #mask_prefix = torch.ones(batch_size, self.num_video_query_token+1+18, dtype=torch.bool).to(self.device)
-#         mask_prefix = torch.ones(batch_size, 60 + 1 + 18, dtype=torch.bool).to(self.device)
-#         #mask_prefix = torch.ones(batch_size, self.num_video_query_token + 1, dtype=torch.bool).to(self.device)
-#         temp_res_tokens = self.llama_model.generate(
-#             logits_processor=self.logits_prosessors,
-#             renormalize_logits=True,
-#             inputs_embeds=inputs_llama_with_s,
-#             attention_mask=mask_prefix,
-#             max_new_tokens=128,
-#             num_beams=5,
-#             do_sample=True,
-#             min_length=5,
-#             top_p=0.9,
-#             repetition_penalty=1.0,
-#             length_penalty=1,
-#             temperature=1.0,
-#         )
-#         res_text = process_output_tokens(self, temp_res_tokens)
-#         return res_text
-
 
 
 class LayerNorm(nn.LayerNorm):
