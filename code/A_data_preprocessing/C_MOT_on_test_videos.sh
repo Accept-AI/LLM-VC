@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # JSON 文件路径
-json_file="/home/xzy/xzy_nba/LLM_VC/Player_identify/code/A_data_preprocessing/test_video_info.json"
+json_file="/PATH/TO/test_video_info.json"
 
 # 使用 Python 来解析 JSON，并返回每个 video_id 和 save_path
 python3 - <<END | while IFS=' ' read -r video_id video_path; do
