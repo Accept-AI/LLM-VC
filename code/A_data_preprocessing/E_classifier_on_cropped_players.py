@@ -19,7 +19,7 @@ import pickle
 #######
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 # 路径
-data_path = '/home/xzy/xzy_nba/VG_NBA_save_player'
+data_path = '/PATH/TO/VG_NBA_save_player'
 # save pkl
 E_result_dict = {}
 
@@ -27,7 +27,7 @@ E_result_dict = {}
 num_frame = 25
 image_height, image_width = 224, 224
 # 1. 获取球员真值列表
-with open("/home/xzy/xzy_nba/LLM_VC/Player_identify/Save/D_all_name_label.json", encoding='utf-8') as Player_list:
+with open("/PATH/TO/D_all_name_label.json", encoding='utf-8') as Player_list:
     result_player_list = json.load(Player_list)
 PLAYERS = result_player_list['all']
 name_to_id = {name: i for i, name in enumerate(PLAYERS)}
@@ -35,13 +35,13 @@ print("name_to_id: ", name_to_id)   # {"name":"id"}
 id_to_name = {str(value): key for key, value in name_to_id.items()}
 print("id_to_name: ", id_to_name)   # {"id":"name"}
 # 2. Timesformer初始化
-model_path = "/home/xzy/xzy_nba/LLM_VC/Player_identify/stage_two/NBA_result_timesformer/[nba]_DFGAR_<2024-09-22_00-19-11>/epoch44_91.13%.pth"
+model_path = "/PATH/TO/stage_two/NBA_result_timesformer/[nba]_DFGAR_<2024-09-22_00-19-11>/epoch44_91.13%.pth"
 model = TimeSformer(
         img_size=224,
         num_classes=321,
         num_frames=20,
         attention_type="divided_space_time",
-        pretrained_model="/home/xzy/xzy_nba/LLM_VC/Player_identify/stage_one/network/TimeSformer/pretrained_model/TimeSformer_divST_32x32_224_HowTo100M.pyth",
+        pretrained_model="/PATH/TO/stage_one/network/TimeSformer/pretrained_model/TimeSformer_divST_32x32_224_HowTo100M.pyth",
     )
 model = torch.nn.DataParallel(model).cuda()
 checkpoint = torch.load(model_path)
@@ -54,7 +54,7 @@ transformer_player = transforms.Compose([
             transforms.ToTensor(),
             transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
         ])
-with open("/home/xzy/xzy_nba/LLM_VC/Player_identify/code/A_data_preprocessing/D_bbox_for_player_video.json", encoding='utf-8') as video_player:
+with open("/PATH/TO/D_bbox_for_player_video.json", encoding='utf-8') as video_player:
     result_video_player = json.load(video_player)
     print("number of videos: ", len(result_video_player))   # 1060
 jishu = 0
