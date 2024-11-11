@@ -13,12 +13,12 @@ i = 0
 j_list = []
 m_list = []
 d_list = []
-save_path = '/home/xzy/xzy/caption/LLM_VC/Player_identify/Save/'
+save_path = '..../Save/'
 # 创建json
 new_file = open(save_path + 'A_VideoID_path.json', mode='a', encoding='utf-8')
 
-# 遍历当前文件夹中的所有子文件夹
-for dirpath, dirnames, filenames in os.walk('/media/xzy/58bff591-e818-4a4b-8c3e-e857128495ed/xzy/VG_NBA_2024/'):
+
+for dirpath, dirnames, filenames in os.walk('/media/..../VG_NBA_2024/'):
     # print("dirpath: ", dirpath)
     # print("dirnames: ", dirnames)
     # print("filenames: ", filenames)
