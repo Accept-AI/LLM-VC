@@ -33,7 +33,7 @@ class LLM_dataset(Dataset):
 
         # load files
         #self.video_feature = os.listdir(feature_root)  # npy files --dim 768
-        self.video_info_dict = json.load(open(self.video_info, 'r'))  # "Video100228": {"source_path": "/home/xzy/xzy_nba/VG_NBA_2024/20221111-Phoenix Suns-Orlando Magic/20", "caption": "C.Payne makes 2-pt jump shot from 18 ft", "save_path": "/home/xzy/xzy_nba/VG_NBA_videos_train/Video100228", "game_id": "20221111-Phoenix Suns-Orlando Magic"}
+        self.video_info_dict = json.load(open(self.video_info, 'r'))  # "Video100228": {"source_path": "/PATH/TO/VG_NBA_2024/20221111-Phoenix Suns-Orlando Magic/20", "caption": "C.Payne makes 2-pt jump shot from 18 ft", "save_path": "/PATH/TO/VG_NBA_videos_train/Video100228", "game_id": "20221111-Phoenix Suns-Orlando Magic"}
         self.video_top2_pkl = pickle.load(open(self.train_videoid_top2, 'rb'))    # video102694 : {"xxx": array([[xxx]])}
         self.video_feature = list(self.video_top2_pkl.keys())
 
