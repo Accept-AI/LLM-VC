@@ -3,7 +3,7 @@ import os
 import numpy as np
 #a = [8.6529,7.0089,8.6539, 6.5835,8.6793,8.2157,5.0619,8.9334, device='cuda:0'), tensor(10.3737, device='cuda:0'), tensor(9.2813, device='cuda:0'), tensor(12.4820, device='cuda:0'), tensor(4.7754, device='cuda:0'), tensor(5.6964, device='cuda:0'), tensor(4.9173, device='cuda:0')]
 import pickle
-with open("/home/xzy/xzy_nba/LLM_VC/Player_identify/code/A_data_preprocessing/E_videoid_top2.pkl", "rb") as f:
+with open("/PATH/TO/E_videoid_top2.pkl", "rb") as f:
     loaded_data = pickle.load(f)
 #print(loaded_data)
 for k, v in loaded_data.items():
@@ -18,12 +18,12 @@ for k, v in loaded_data.items():
 
         print(vi.shape)
 
-# store_dir = os.listdir("/home/xzy/xzy_nba/VG_NBA_Timesformer-features")
+# store_dir = os.listdir("/PATH/TO/VG_NBA_Timesformer-features")
 # #print(store_dir)
 # len_list = []
 # for video_id in store_dir:
 #     print(video_id)
-#     video_path = os.path.join("/home/xzy/xzy_nba/VG_NBA_Timesformer-features", video_id, "out.npy")
+#     video_path = os.path.join("/PATH/TO/VG_NBA_Timesformer-features", video_id, "out.npy")
 #     video_feature = np.load(video_path)
 #     print(f"{video_id}: ", video_feature.shape)
 #     len_list.append(video_feature.shape[0])
