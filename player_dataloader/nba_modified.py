@@ -12,9 +12,9 @@ ACTIVITIES = ['2p-succ.', '2p-fail.-off.', '2p-fail.-def.',
               '2p-layup-succ.', '2p-layup-fail.-off.', '2p-layup-fail.-def.',
               '3p-succ.', '3p-fail.-off.', '3p-fail.-def.']
 
-with open("/home/xzy/xzy_nba/LLM_VC/Player_identify/Save/D_all_name_label.json", encoding='utf-8') as Player_list:
+with open("/PATH/TO/D_all_name_label.json", encoding='utf-8') as Player_list:
     result_player_list = json.load(Player_list)
-with open("/home/xzy/xzy_nba/LLM_VC/Player_identify/Save/D_all_action_label.json", encoding='utf-8') as Action_list:
+with open("/PATH/TO/D_all_action_label.json", encoding='utf-8') as Action_list:
     result_action_list = json.load(Action_list)
 PLAYERS = result_player_list['all']
 ACTIONS = result_action_list['all']
