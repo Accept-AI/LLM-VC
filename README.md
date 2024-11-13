@@ -2,7 +2,7 @@
 https://pan.baidu.com/s/1hOH8rDQntEwNL1hFPhpsoQ?pwd=dt8s 
 
 2 Preprocessed captioning data set:
-.................................................
+https://pan.baidu.com/s/1Z3HXVNcRIUUexOsv_VbJfw?pwd=9A9N 
 
 3 Supplement files:
 https://pan.baidu.com/s/18hGAtFZB5Ab4FhL-gmKiWA?pwd=mbuu
