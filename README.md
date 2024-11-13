@@ -18,4 +18,4 @@ https://pan.baidu.com/s/18hGAtFZB5Ab4FhL-gmKiWA?pwd=mbuu
 player_train_timesformer.py
 
 3 Stage_two for identity-aware sports video captioning:
-Train and inference -- train_LLM_VC_1.py
+train_LLM_VC_1.py
