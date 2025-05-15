@@ -1,6 +1,6 @@
 Data and code
 ----------------------------------------------------------------------------------------------------------------------------------
-**We have released the features of all videos in the dataset the raw data of a game：**
+**We have released the features of all videos in the dataset the raw data of a game:**
 
 1 Video timesformer features of NBA-ldentity datasets:
 https://pan.baidu.com/s/1RfS5u2z-HKqtAaHlefQd9w?pwd=ytx7
