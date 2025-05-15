@@ -8,6 +8,9 @@ https://pan.baidu.com/s/1hOH8rDQntEwNL1hFPhpsoQ?pwd=dt8s
 2 Preprocessed captioning dataset:
 https://pan.baidu.com/s/1Z3HXVNcRIUUexOsv_VbJfw?pwd=9A9N 
 
+3 Video timesformer features of VC-NBA-2022 and NBA-Identity datasets:
+https://pan.baidu.com/s/1T4AuNHuOkgIxRsxmi5rdTw?pwd=um8q
+
 ----------------------------------------------------------------------------------------------------------------------------------
 **About our codes:**
 
