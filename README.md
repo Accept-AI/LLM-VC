@@ -2,7 +2,8 @@ Data and code
 ----------------------------------------------------------------------------------------------------------------------------------
 **We have released the features of all videos in the dataset the raw data of a game：**
 
-1. Video timesformer features of VC-NBA-2022 and NBA-ldentity datasets:https://pan.baidu.com/s/1T4AuNHuOkglxRsxmi5rdTw?pwd=um8a
+1 Video timesformer features of VC-NBA-2022 and NBA-ldentity datasets:
+https://pan.baidu.com/s/1T4AuNHuOkglxRsxmi5rdTw?pwd=um8a
 
 ----------------------------------------------------------------------------------------------------------------------------------
 **About our codes:**
