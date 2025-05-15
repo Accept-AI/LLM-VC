@@ -1,15 +1,8 @@
 Data and code
 ----------------------------------------------------------------------------------------------------------------------------------
-**We have provided the raw data of a game and parts of preprocessed video features. The complete dataset will be released later.**
+**We have released the features of all videos in the dataset the raw data of a game：**
 
-1 Cleveland Cavaliers-Los Angeles Clippers basketball game video slice:
-https://pan.baidu.com/s/1hOH8rDQntEwNL1hFPhpsoQ?pwd=dt8s 
-
-2 Preprocessed captioning dataset:
-https://pan.baidu.com/s/1Z3HXVNcRIUUexOsv_VbJfw?pwd=9A9N 
-
-3 Video timesformer features of VC-NBA-2022 and NBA-Identity datasets:
-https://pan.baidu.com/s/1T4AuNHuOkgIxRsxmi5rdTw?pwd=um8q
+1. Video timesformer features of VC-NBA-2022 and NBA-ldentity datasets:https://pan.baidu.com/s/1T4AuNHuOkglxRsxmi5rdTw?pwd=um8a
 
 ----------------------------------------------------------------------------------------------------------------------------------
 **About our codes:**
